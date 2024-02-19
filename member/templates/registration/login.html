@@ -48,7 +48,8 @@
 </head>
 <body>
     <div class="login-container">
-        <form action="/login" method="POST">
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
