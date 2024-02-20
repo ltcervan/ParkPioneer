@@ -17,5 +17,17 @@ class Itinerary(models.Model):
 
     def is_past(self):
         return self.end_date < timezone.now().date()
+    
+
+class Event(models.Model):
+    itinerary = models.ForeignKey(Itinerary, on_delete=models.CASCADE, related_name='events')
+    title = models.CharField(max_length=200)
+    time = models.TimeField()
+    date = models.DateField()
+    location = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.title} on {self.date} at {self.time}, {self.location}"
+
 
 
