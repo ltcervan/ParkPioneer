@@ -5,3 +5,6 @@ def itinerary_list(request):
     itineraries = Itinerary.objects.filter(user=request.user)
     return render(request, 'itinerary/itinerary_list.html', {'itineraries': itineraries})
 
+def main_view(request):
+    return render(request, 'itinerary/main.html')
+
