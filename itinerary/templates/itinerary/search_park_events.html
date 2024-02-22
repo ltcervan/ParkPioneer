@@ -1,0 +1,31 @@
+{% block content %}
+<h2>Search for Park Events</h2>
+<form method="get" action="{% url 'search_park_events' %}">
+    <label for="park_name">Park Name:</label>
+    <input type="text" id="park_name" name="park_name" required>
+    
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" required>
+    
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" required>
+    
+    <button type="submit">Search</button>
+</form>
+
+{% if events %}
+    <h3>Events Found:</h3>
+    <ul>
+        {% for event in events %}
+            <li>
+                <h4>{{ event.title }}</h4>
+                <p>Date: {{ event.datestart }} to {{ event.dateend }}</p>
+                <p>Location: {{ event.location }}</p>
+                <p>{{ event.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% elif error %}
+    <p>{{ error }}</p>
+{% endif %}
+{% endblock %}
