@@ -1,0 +1,44 @@
+
+{% block content %}
+<div class="itinerary-list-container">
+    <h1>Your Itineraries</h1>
+    {% if itineraries %}
+        <ul class="itinerary-list">
+            {% for itinerary in itineraries %}
+                <li class="itinerary-item">
+                    <h2>{{ itinerary.title }}</h2>
+                    <p>Park Name: {{ itinerary.park_name }}</p>
+                    <p>Start Date: {{ itinerary.start_date }}</p>
+                    <p>End Date: {{ itinerary.end_date }}</p>
+                    <a href="{% url 'itinerary_detail' itinerary.id %}">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no itineraries planned. Start <a href="{% url 'create_itinerary' %}">planning one now</a>!</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+<style>
+/* You can add your styling here or in an external stylesheet */
+.itinerary-list-container {
+    /* Styles for the container */
+}
+
+.itinerary-list {
+    /* Styles for the list of itineraries */
+}
+
+.itinerary-item {
+    /* Styles for each itinerary */
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.itinerary-item h2 {
+    margin-top: 0;
+}
+</style>

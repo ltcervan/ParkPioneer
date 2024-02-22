@@ -1,0 +1,57 @@
+
+{% block content %}
+<div class="itinerary-container">
+    <h1>{{ itinerary.title }}</h1>
+    
+    {% for day, events in days_events %}
+    <div class="day-container">
+        <h2>Day {{ forloop.counter }}: {{ day|date:"DATE_FORMAT" }}</h2> <!-- Replace DATE_FORMAT with the format you want, e.g., 'N j, Y' -->
+        {% for event in events %}
+        <div class="event-container">
+            <h3>{{ event.title }}</h3>
+            <p>{{ event.time|time:"TIME_FORMAT" }} - {{ event.date|date:"DATE_FORMAT" }}</p> <!-- Replace TIME_FORMAT with the format you want, e.g., 'H:i' -->
+            <p>Location: {{ event.location }}</p>
+            <!-- Include any other details you want about the event -->
+            <!-- Add an edit and delete button if required -->
+            <a href="{% url 'edit_event' event.id %}" class="edit-button">Edit</a> <!-- Replace with your actual URL and view name -->
+            <form method="post" action="{% url 'delete_event' event.id %}"> <!-- Replace with your actual URL and view name -->
+                {% csrf_token %}
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.itinerary-container {
+    text-align: center;
+}
+.day-container {
+    background-color: #e9f5e9; /* Light green background */
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.event-container {
+    background-color: #f7f7f7; /* Light grey background */
+    border: 1px solid #ddd; /* Light grey border */
+    padding: 10px;
+    margin-bottom: 5px;
+}
+.edit-button, .delete-button {
+    background-color: #dc3545; /* Bootstrap 'danger' red */
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+.delete-button {
+    border: none; /* Remove border from button */
+}
+/* Add more styling as needed */
+</style>
+{% endblock %}
