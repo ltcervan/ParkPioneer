@@ -1,6 +1,8 @@
 import requests
 from django.conf import settings
 from django.http import JsonResponse
+from .models import Itinerary
+from django import forms
 
 def search_parks(request):
     # Extract search parameters from the request
@@ -17,3 +19,13 @@ def search_parks(request):
     # Optionally filter events by date here if the NPS API does not support date filtering
 
     return JsonResponse(data)
+
+class ItineraryForm(forms.ModelForm):
+    class Meta:
+        model = Itinerary
+        fields = ['title', 'park_title', 'start_date', 'end_date']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+

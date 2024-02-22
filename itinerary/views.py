@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
-from .models import Itinerary
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .models import Itinerary, Event
+from .forms import ItineraryForm
 from django.conf import settings
+from datetime import timedelta
 import requests
 
 def itinerary_list(request):
@@ -12,17 +14,27 @@ def main_view(request):
     return render(request, 'itinerary/main.html')
 
 
+## ============= Authentication Required =======================
 @login_required
 def create_itinerary(request):
     if request.method == 'POST':
-        # Process the form data, create an Itinerary, and redirect
-        # ...
-        return redirect('some_view_name')
+        form = ItineraryForm(request.POST)
+        if form.is_valid():
+            itinerary = form.save(commit=False)
+            itinerary.user = request.user
+            itinerary.save()
+            return redirect('itinerary_list')
     else:
-        # If not POST, render the form page
-        return render(request, 'itinerary/create_itinerary.html')
-    
+        form = ItineraryForm()
+    return render(request, 'itinerary/create_itinerary.html', {'form': form})
 
+
+@login_required
+def itinerary_list(request):
+    itineraries = Itinerary.objects.filter(user=request.user).order_by('-start_date')
+    return render(request, 'itinerary/itinerary_list.html', {'itineraries': itineraries})
+    
+@login_required
 def search_park_events(request):
     context = {}
     if 'park_name' in request.GET:
@@ -49,3 +61,23 @@ def search_park_events(request):
     
     return render(request, 'itinerary/search_park_events.html', context)
 
+
+@login_required
+def itinerary_detail(request, itinerary_id):
+    itinerary = Itinerary.objects.get(pk=itinerary_id)
+    start_date = itinerary.start_date
+    end_date = itinerary.end_date
+    number_of_days = (end_date - start_date).days + 1  # +1 to include both start and end dates
+
+    # Gather events by date
+    days_events = {}
+    for i in range(number_of_days):
+        day = start_date + timedelta(days=i)
+        events_on_day = itinerary.events.filter(date=day)
+        days_events[day] = events_on_day
+
+    context = {
+        'itinerary': itinerary,
+        'days_events': days_events.items(),
+    }
+    return render(request, 'itinerary/itinerary_detail', context)
