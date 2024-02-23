@@ -80,4 +80,4 @@ def itinerary_detail(request, itinerary_id):
         'itinerary': itinerary,
         'days_events': days_events.items(),
     }
-    return render(request, 'itinerary/itinerary_detail', context)
+    return render(request, 'itinerary/itinerary_detail.html', context)
