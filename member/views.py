@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from django.template import loader
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from itinerary.models import Itinerary 
 from .forms import UserRegisterForm
+from django.template import loader
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -27,7 +30,13 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                
+                # Redirect user based on whether they have itineraries
+                if Itinerary.objects.filter(user=user).exists():
+                    return redirect('itinerary_list')  # Name of your URL pattern for itinerary list
+                else:
+                    return redirect('main')  # Name of your URL pattern for main page
+                
             else:
                 form.add_error(None, "Invalid username or password")
     else:

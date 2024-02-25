@@ -1,10 +1,14 @@
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 from .models import Itinerary, Event
+from django.contrib import messages
 from .forms import ItineraryForm
 from django.conf import settings
 from datetime import timedelta
 import requests
+
+
 
 def itinerary_list(request):
     itineraries = Itinerary.objects.filter(user=request.user)
@@ -60,6 +64,21 @@ def search_park_events(request):
             context['error'] = "An error occurred while trying to retrieve events."
     
     return render(request, 'itinerary/search_park_events.html', context)
+
+@require_POST
+def add_event_to_itinerary(request, itinerary_id):
+    itinerary = get_object_or_404(Itinerary, pk=itinerary_id, user=request.user)
+    # Create a new Event instance with data from the form
+    new_event = Event(
+        itinerary=itinerary,
+        title=request.POST.get('title'),
+        time=request.POST.get('time'),
+        date=request.POST.get('date'),
+        location=request.POST.get('location'),
+    )
+    new_event.save()
+    messages.success(request, 'Event added to your itinerary!')
+    return redirect('itinerary_detail', itinerary_id=itinerary.id)
 
 
 @login_required
