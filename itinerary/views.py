@@ -1,10 +1,13 @@
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 from .models import Itinerary, Event
+from django.contrib import messages
 from .forms import ItineraryForm
 from django.conf import settings
 from datetime import timedelta
 import requests
+
 
 def itinerary_list(request):
     itineraries = Itinerary.objects.filter(user=request.user)
@@ -35,31 +38,38 @@ def itinerary_list(request):
     return render(request, 'itinerary/itinerary_list.html', {'itineraries': itineraries})
     
 @login_required
-def search_park_events(request):
-    context = {}
-    if 'park_name' in request.GET:
-        park_name = request.GET.get('park_name')
-        start_date = request.GET.get('start_date')
-        end_date = request.GET.get('end_date')
-
-        # Construct the API URL with your parameters
-        api_url = f"https://developer.nps.gov/api/v1/events"
-        params = {
-            'q': park_name,
-            'startDate': start_date,
-            'endDate': end_date,
-            'api_key': settings.NPS_API_KEY,
-        }
-        
-        # Make the API request
-        response = requests.get(api_url, params=params)
-        if response.status_code == 200:
-            # Parse the response data
-            context['events'] = response.json()['data']
-        else:
-            context['error'] = "An error occurred while trying to retrieve events."
+def search_park_events(request, itinerary_id):
+    park_title = request.session.get('park_title')
+    start_date = request.session.get('start_date')
+    end_date = request.session.get('end_date')
     
-    return render(request, 'itinerary/search_park_events.html', context)
+    api_url = "https://developer.nps.gov/api/v1/events"
+    params = {
+        'q': park_title,
+        'startDate': start_date,
+        'endDate': end_date,
+        'api_key': settings.NPS_API_KEY,
+    }
+    
+    response = requests.get(api_url, params=params)
+    events = []
+    if response.status_code == 200:
+        events = response.json().get('data', [])
+    return render(request, 'itinerary/event_list.html', {'events': events, 'itinerary_id': itinerary_id})
+@require_POST
+def add_event_to_itinerary(request, itinerary_id):
+    itinerary = get_object_or_404(Itinerary, pk=itinerary_id, user=request.user)
+    # Create a new Event instance with data from the form
+    new_event = Event(
+        itinerary=itinerary,
+        title=request.POST.get('title'),
+        time=request.POST.get('time'),
+        date=request.POST.get('date'),
+        location=request.POST.get('location'),
+    )
+    new_event.save()
+    messages.success(request, 'Event added to your itinerary!')
+    return redirect('itinerary_detail', itinerary_id=itinerary.id)
 
 
 @login_required

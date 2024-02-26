@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Park Pioneer</title>
+    <!-- Add your stylesheet links here -->
+</head>
+<body>
+    <header>
+        <div class="title-bar">
+            <h1>Park Pioneer</h1>
+            <a href="{% url 'logout' %}">Log out</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'itinerary_list' %}">My Itineraries</a></li>
+                <li><a href="{% url 'create_itinerary' %}">Make New Itinerary</a></li>
+                <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Content will go here -->
+        {% endblock content %}
+    </main>
+
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+
+    <!-- Add your scripts at the bottom of the body -->
+</body>
+</html>
+
+<style>
+/* Add your CSS styles here */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #eee; /* Light grey background */
+}
+
+.title-bar h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    background-color: #f0f0f0; /* Slightly darker grey */
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+nav ul li a:hover {
+    background-color: #ddd; /* Light grey background on hover */
+}
+
+/* Style for the main action button 'Begin Planning your Adventure' */
+.main-action-button {
+    background-color: #228B22; /* Forest Green */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.main-action-button:hover {
+    background-color: #1C7C1B; /* Darker Forest Green */
+}
+</style>

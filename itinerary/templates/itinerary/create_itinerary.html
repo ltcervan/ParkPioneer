@@ -1,5 +1,5 @@
 {% block content %}
-<h2>Create Itinerary</h2>
+<h2>Create Itinerary and Search Park Events</h2>
 <form method="post" class="itinerary-form">
     {% csrf_token %}
     <p>
@@ -7,7 +7,7 @@
         {{ form.title }}
     </p>
     <p>
-        <label for="id_park_name">Park Name:</label>
+        <label for="id_park_title">Park Name:</label>
         {{ form.park_title }}
     </p>
     <p>
@@ -18,7 +18,7 @@
         <label for="id_end_date">End Date:</label>
         {{ form.end_date }}
     </p>
-    <button type="submit">Save Itinerary</button>
+    <button type="submit">Create Itinerary</button>
 </form>
 {% endblock %}
 
