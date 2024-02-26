@@ -1,8 +1,8 @@
 {% block content %}
 <h2>Search for Park Events</h2>
-<form method="get" action="{% url 'search_park_events' %}">
-    <label for="park_name">Park Name:</label>
-    <input type="text" id="park_name" name="park_name" required>
+<form method="get" action="{% url 'search_park_events' itinerary.id %}">
+    <label for="park_title">Park Name:</label>
+    <input type="text" id="park_title" name="park_title" required>
     
     <label for="start_date">Start Date:</label>
     <input type="date" id="start_date" name="start_date" required>

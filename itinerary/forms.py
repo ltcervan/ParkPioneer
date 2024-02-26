@@ -6,12 +6,12 @@ from django import forms
 
 def search_parks(request):
     # Extract search parameters from the request
-    park_name = request.GET.get('parkName')
+    park_title = request.GET.get('parkName')
     start_date = request.GET.get('startDate')
     end_date = request.GET.get('endDate')
 
     # Construct the API URL with query parameters
-    api_url = f"https://developer.nps.gov/api/v1/parks?parkCode={park_name}&api_key={settings.NPS_API_KEY}"
+    api_url = f"https://developer.nps.gov/api/v1/parks?parkCode={park_title}&api_key={settings.NPS_API_KEY}"
 
     response = requests.get(api_url)
     data = response.json()

@@ -1,4 +1,3 @@
-
 {% block content %}
 <div class="itinerary-list-container">
     <h1>Your Itineraries</h1>
@@ -7,10 +6,14 @@
             {% for itinerary in itineraries %}
                 <li class="itinerary-item">
                     <h2>{{ itinerary.title }}</h2>
-                    <p>Park Name: {{ itinerary.park_name }}</p>
+                    <p>Park Name: {{ itinerary.park_title }}</p>
                     <p>Start Date: {{ itinerary.start_date }}</p>
                     <p>End Date: {{ itinerary.end_date }}</p>
-                    <a href="{% url 'itinerary_detail' itinerary.id %}">View Details</a>
+                    <div class="itinerary-actions">
+                        <a href="{% url 'itinerary_detail' itinerary.id %}" class="btn btn-primary">View Details</a>
+                        <!-- Add the 'Search Events' button -->
+                        <a href="{% url 'search_park_events' itinerary.id %}" class="btn btn-secondary">Search Events</a>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
@@ -21,24 +24,35 @@
 {% endblock %}
 
 <style>
-/* You can add your styling here or in an external stylesheet */
-.itinerary-list-container {
-    /* Styles for the container */
+/* Add the rest of your styles as needed */
+
+.itinerary-actions {
+    /* Style for the action buttons container */
+    margin-top: 10px;
 }
 
-.itinerary-list {
-    /* Styles for the list of itineraries */
+.btn {
+    /* Basic button styles */
+    padding: 5px 15px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 5px;
 }
 
-.itinerary-item {
-    /* Styles for each itinerary */
-    margin-bottom: 1em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.btn-primary {
+    /* Specific style for primary action buttons */
+    background-color: #007bff;
 }
 
-.itinerary-item h2 {
-    margin-top: 0;
+.btn-secondary {
+    /* Specific style for secondary action buttons */
+    background-color: #6c757d;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    /* Hover state for buttons */
+    opacity: 0.9;
 }
 </style>
