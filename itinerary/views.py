@@ -93,8 +93,33 @@ def itinerary_detail(request, itinerary_id):
     }
     return render(request, 'itinerary/itinerary_detail.html', context)
 
+@login_required
+@login_required
 def event_details(request, event_id):
-    print(event_id)
-    # Assuming you have an Event model with a primary key of 'event_id'
-    event = get_object_or_404(Event, pk=event_id)
-    return render(request, 'event_details.html', {'event': event})
+    # Make a request to the NPS API to fetch event details based on the event_id
+    api_url = f"https://developer.nps.gov/api/v1/events/{event_id}"
+    params = {
+        'api_key': settings.NPS_API_KEY,
+    }
+    response = requests.get(api_url, params=params)
+    
+    if response.status_code == 200:
+        event_data = response.json().get('data', {})
+        if event_data:
+            # Create or update the Event object based on the retrieved data
+            event, created = Event.objects.update_or_create(
+                id=event_data.get('id'),
+                defaults={
+                    'title': event_data.get('title'),
+                    'start_date': event_data.get('startDate'),
+                    'end_date': event_data.get('endDate'),
+                    'description': event_data.get('description'),
+                    # Add other fields as necessary
+                }
+            )
+            return render(request, 'itinerary/event_details.html', {'event': event})
+        else:
+            return render(request, 'itinerary/event_details.html', {'error': 'Event not found'})
+    else:
+        return render(request, 'itinerary/event_details.html', {'error': 'Failed to fetch event details from the API'})
+
