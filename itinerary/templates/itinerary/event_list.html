@@ -3,7 +3,8 @@
 <h2>Events for {{ park_title }}</h2>
 {% for event in events %}
 <div class="event">
-    <h3>{{ event.title }}</h3>
+    <!-- Wrap the title in an anchor tag that links to the event_detail page for the event -->
+    <h3><a href="{% url 'event_details' event.id %}">{{ event.title }}</a></h3>
     <p>Date: {{ event.date }}</p>
     <!-- Display other event details -->
 </div>

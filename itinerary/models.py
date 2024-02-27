@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
@@ -21,11 +22,17 @@ class Itinerary(models.Model):
     
 
 class Event(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     itinerary = models.ForeignKey(Itinerary, on_delete=models.CASCADE, related_name='events')
     title = models.CharField(max_length=200)
     time = models.TimeField()
     date = models.DateField()
     location = models.CharField(max_length=255)
+    fee = models.CharField(max_length=100, blank=True, null=True)  # Assuming fee is a string like "Free" or "$10"
+    description = models.TextField(blank=True, null=True)
+    is_repeating = models.BooleanField(default=False)
+    registration_required = models.BooleanField(default=False)
+    # Add any other fields here
 
     def __str__(self):
         return f"{self.title} on {self.date} at {self.time}, {self.location}"

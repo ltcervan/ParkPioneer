@@ -56,6 +56,7 @@ def search_park_events(request, itinerary_id):
     if response.status_code == 200:
         events = response.json().get('data', [])
     return render(request, 'itinerary/event_list.html', {'events': events, 'itinerary_id': itinerary_id})
+
 @require_POST
 def add_event_to_itinerary(request, itinerary_id):
     itinerary = get_object_or_404(Itinerary, pk=itinerary_id, user=request.user)
@@ -91,3 +92,9 @@ def itinerary_detail(request, itinerary_id):
         'days_events': days_events.items(),
     }
     return render(request, 'itinerary/itinerary_detail.html', context)
+
+def event_details(request, event_id):
+    print(event_id)
+    # Assuming you have an Event model with a primary key of 'event_id'
+    event = get_object_or_404(Event, pk=event_id)
+    return render(request, 'event_details.html', {'event': event})
