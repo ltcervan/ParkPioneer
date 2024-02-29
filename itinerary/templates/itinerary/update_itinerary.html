@@ -1,0 +1,8 @@
+{% block content %}
+  <h2>Update Itinerary</h2>
+  <form method="post" class="itinerary-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Itinerary</button>
+  </form>
+{% endblock %}

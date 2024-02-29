@@ -1,0 +1,43 @@
+
+{% block content %}
+<div class="event-details-container">
+    <h1>{{ event.title }}</h1>
+    <p><strong>FEE:</strong> {{ event.fee | default:"Not specified" }}</p>
+    <p><strong>LOCATION:</strong> {{ event.location }}</p>
+    <p><strong>REPEATING EVENT:</strong> {{ event.is_repeating | yesno:"Yes,No" }}</p>
+    <div class="event-schedule">
+        <p><strong>Days:</strong> {{ event.days }}</p>
+        <p><strong>Dates:</strong> {{ event.start_date }} to {{ event.end_date }}</p>
+        <p><strong>Time:</strong> {{ event.time }}</p>
+        <p><strong>Duration:</strong> {{ event.duration }}</p>
+    </div>
+    <p><strong>DESCRIPTION</strong></p>
+    <div class="event-description">
+        {{ event.description | safe }}
+    </div>
+    <p><strong>RESERVATION OR REGISTRATION:</strong> {{ event.registration_required | yesno:"Yes,No" }}</p>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.event-details-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+}
+
+.event-details-container h1 {
+    text-align: center;
+}
+
+.event-schedule p, .event-description, .event-details-container p {
+    margin-bottom: 10px;
+}
+
+/* Add additional styling as needed */
+</style>
+{% endblock %}

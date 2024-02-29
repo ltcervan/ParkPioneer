@@ -1,0 +1,9 @@
+{% block content %}
+  <h2>Delete Itinerary</h2>
+  <p>Are you sure you want to delete "{{ itinerary.title }}" itinerary?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    <a href="{% url 'itinerary_list' %}">Cancel</a>
+  </form>
+{% endblock %}
