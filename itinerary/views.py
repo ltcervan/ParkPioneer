@@ -74,6 +74,7 @@ def search_park_events(request, itinerary_id):
     
     api_url = "https://developer.nps.gov/api/v1/events"
     params = {
+        'id': event_id,
         'q': park_title,
         'startDate': start_date,
         'endDate': end_date,
