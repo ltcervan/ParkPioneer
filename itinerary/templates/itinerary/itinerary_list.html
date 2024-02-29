@@ -29,16 +29,30 @@
 {% endblock %}
 
 
+{% block extra_css %}
 <style>
 /* Add the rest of your styles as needed */
 
+body {
+    background-color: #0B6623; /* Dark forest green */
+}
+
+.itinerary-list-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Faded white background */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.itinerary-item {
+    margin-bottom: 20px;
+}
+
 .itinerary-actions {
-    /* Style for the action buttons container */
     margin-top: 10px;
 }
 
 .btn {
-    /* Basic button styles */
     padding: 5px 15px;
     text-decoration: none;
     color: white;
@@ -48,17 +62,23 @@
 }
 
 .btn-primary {
-    /* Specific style for primary action buttons */
-    background-color: #007bff;
+    background-color: #228B22; /* Darker green color */
 }
 
 .btn-secondary {
-    /* Specific style for secondary action buttons */
-    background-color: #6c757d;
+    background-color: #6c757d; /* Dark grey color */
 }
 
-.btn-primary:hover, .btn-secondary:hover {
-    /* Hover state for buttons */
+.btn-warning {
+    background-color: #FFD700; /* Goldenrod color */
+}
+
+.btn-danger {
+    background-color: #8B0000; /* Dark red color */
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-warning:hover, .btn-danger:hover {
     opacity: 0.9;
 }
 </style>
+{% endblock %}

@@ -1,47 +1,82 @@
 {% block content %}
-<h2>Create Itinerary and Search Park Events</h2>
-<form method="post" class="itinerary-form">
-    {% csrf_token %}
-    <p>
-        <label for="id_title">Title:</label>
-        {{ form.title }}
-    </p>
-    <p>
-        <label for="id_park_title">Park Name:</label>
-        {{ form.park_title }}
-    </p>
-    <p>
-        <label for="id_start_date">Start Date:</label>
-        {{ form.start_date }}
-    </p>
-    <p>
-        <label for="id_end_date">End Date:</label>
-        {{ form.end_date }}
-    </p>
-    <button type="submit">Create Itinerary</button>
-</form>
+<div class="main-content">
+    <h2>Create Itinerary and Search Park Events</h2>
+    <form method="post" class="itinerary-form">
+        {% csrf_token %}
+        <p>
+            <label for="id_title">Title:</label>
+            {{ form.title }}
+        </p>
+        <p>
+            <label for="id_park_title">Park Name:</label>
+            {{ form.park_title }}
+        </p>
+        <p>
+            <label for="id_start_date">Start Date:</label>
+            {{ form.start_date }}
+        </p>
+        <p>
+            <label for="id_end_date">End Date:</label>
+            {{ form.end_date }}
+        </p>
+        <button type="submit" class="submit-button">Create Itinerary</button>
+    </form>
+</div>
 {% endblock %}
 
-{% block extra_js %}
-<script>
-    // Example of how you can enhance the date inputs with JavaScript if needed
-    document.addEventListener('DOMContentLoaded', function() {
-        var startDateInput = document.getElementById('id_start_date');
-        var endDateInput = document.getElementById('id_end_date');
+{% block extra_css %}
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #4B5320; /* Faded forest green background */
+}
 
-        if (startDateInput.type !== 'date') { // Fallback for browsers that don't support date inputs
-            startDateInput.type = 'text';
-            startDateInput.onfocus = function() {
-                // Initialize a date picker here if necessary
-            };
-        }
+.main-content {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Faded white background */
+    padding: 20px;
+    border-radius: 10px;
+}
 
-        if (endDateInput.type !== 'date') {
-            endDateInput.type = 'text';
-            endDateInput.onfocus = function() {
-                // Initialize a date picker here if necessary
-            };
-        }
-    });
-</script>
+.itinerary-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.itinerary-form p {
+    margin-bottom: 10px;
+}
+
+.itinerary-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.itinerary-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    background-color: #228B22; /* Darker green color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
+}
+
+.submit-button:hover {
+    background-color: #1c7a1c; /* Slightly darker green for hover state */
+}
+</style>
 {% endblock %}

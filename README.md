@@ -24,3 +24,19 @@ Create a Superuser (optional):
 `python manage.py createsuperuser`
 Run the Development Server:
 `python manage.py runserver`
+
+Technologies
+Frontend Technologies:
+HTML5
+CSS3 (including preprocessors like Sass or Less)
+JavaScript (and frameworks/libraries like React, Angular, or Vue.js)
+Responsive Web Design
+
+Backend Technologies:
+Python (Django)
+
+Databases:
+SQL databases (PostgreSQL)
+
+![ERD chart](ERD.png)
+
