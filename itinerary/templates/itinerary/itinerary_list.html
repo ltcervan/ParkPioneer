@@ -11,8 +11,9 @@
                     <p>End Date: {{ itinerary.end_date }}</p>
                     <div class="itinerary-actions">
                         <a href="{% url 'itinerary_detail' itinerary.id %}" class="btn btn-primary">View Details</a>
-                        <!-- Add the 'Search Events' button -->
                         <a href="{% url 'search_park_events' itinerary.id %}" class="btn btn-secondary">Search Events</a>
+                        <a href="{% url 'update_itinerary' itinerary.id %}" class="btn btn-warning">Update</a>
+                        <a href="{% url 'delete_itinerary' itinerary.id %}" class="btn btn-danger">Delete</a>
                     </div>
                 </li>
             {% endfor %}
@@ -20,8 +21,13 @@
     {% else %}
         <p>You have no itineraries planned. Start <a href="{% url 'create_itinerary' %}">planning one now</a>!</p>
     {% endif %}
+    <!-- Add the 'Create Itinerary' button -->
+    <div class="create-itinerary-btn-container">
+        <a href="{% url 'create_itinerary' %}" class="btn btn-primary">Create New Itinerary</a>
+    </div>
 </div>
 {% endblock %}
+
 
 <style>
 /* Add the rest of your styles as needed */
