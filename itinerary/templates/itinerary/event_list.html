@@ -1,12 +1,42 @@
-
 {% block content %}
-<h2>Events for {{ event.park_title }}</h2>
-{% for event in events %}
-<div class="event">
-    <!-- Wrap the title in an anchor tag that links to the event_detail page for the event -->
-    <h3><a href="{% url 'event_details' event.id %}">{{ event.title }}</a></h3>
-    <p>Date: {{ event.date }}</p>
-    <!-- Display other event details -->
+<div class="event-list-container">
+    <h2>Events for {{ event.park_title }}</h2>
+    {% for event in events %}
+    <div class="event">
+        <!-- Wrap the title in an anchor tag that links to the event_detail page for the event -->
+        <h3><a href="{% url 'event_details' event.id %}" style="color: #228B22;">{{ event.title }}</a></h3>
+        <p>Date: {{ event.date }}</p>
+        <!-- Display other event details -->
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Add the rest of your styles as needed */
+
+body {
+    background-color: #0B6623; /* Dark forest green */
+}
+
+.event-list-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Faded white background */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.event {
+    margin-bottom: 20px;
+}
+
+a {
+    color: #228B22; /* Dark forest green for links */
+}
+
+a:hover {
+    color: #1c7a1c; /* Darker green for hover state */
+}
+</style>
 {% endblock %}

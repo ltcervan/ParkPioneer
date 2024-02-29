@@ -1,43 +1,53 @@
-
-
 {% block content %}
 <div class="main-content">
-    <p>You have no Itineraries yet.</p>
+    <p class="no-itineraries-message">You have no itineraries yet.</p>
     <a href="{% url 'create_itinerary' %}" class="create-itinerary-button">
         <span class="plus-icon">+</span> Create Itinerary
     </a>
-
 </div>
 {% endblock %}
 
 {% block extra_css %}
 <style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #228B22; /* Forest green background */
+}
+
 .main-content {
     text-align: center;
-    /* Add any additional styling you need for this container */
+}
+
+.no-itineraries-message {
+    font-size: 36px; /* Larger font size */
+    margin-bottom: 20px; /* Increase bottom margin */
 }
 
 .create-itinerary-button {
-    background-color: #228B22; /* Adjust the color to match your design */
+    background-color: #1c7a1c; /* Darker green */
     color: white;
-    padding: 10px 20px;
+    padding: 15px 30px; /* Increase padding */
     margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border: 2px solid #145214; /* Dark green border */
+    border-radius: 10px; /* Increase border radius */
+    font-size: 24px; /* Larger font size */
     cursor: pointer;
-    text-decoration: none; /* In case you want to use an <a> element */
-    display: inline-block; /* Centers the button in the text */
+    text-decoration: none;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
 }
 
 .create-itinerary-button .plus-icon {
-    font-size: 24px; /* Larger font size for the plus icon */
+    font-size: 36px; /* Larger plus icon */
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 10px; /* Increase right margin */
 }
 
 .create-itinerary-button:hover {
-    background-color: #1c7a1c; /* A slightly darker forest green for hover state */
+    background-color: #145214; /* Slightly darker green for hover state */
 }
 
 /* Rest of the styles */

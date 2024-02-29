@@ -1,22 +1,78 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
-    <link rel="stylesheet" >
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: forestgreen; /* Set background color to forest green */
+            color: black; /* Set text color to black */
+            text-align: center; /* Center align all text */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px; /* Set maximum width of the login container */
+            width: 100%;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff; /* Set button background color */
+            color: white; /* Set button text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Change background color on hover */
+        }
+
+        a {
+            color: black; /* Set link color to black */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <form action="{% url 'register' %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div class="form-group">
-                <button type="submit">Register</button>
-            </div>
-            <p>Already have an account? <a href="/login">Login here</a>.</p>
-        </form>
+    <div class="container">
+        <div class="login-container">
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-group">
+                    <button type="submit">Register</button>
+                </div>
+                <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+            </form>
+        </div>
     </div>
 </body>
 </html>

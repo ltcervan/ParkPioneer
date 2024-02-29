@@ -4,14 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to ParkPioneer</title>
-    <link rel="stylesheet"  /> <!-- If you have custom CSS -->
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your custom CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: forestgreen; /* Set background color to forest green */
+            color: white; /* Set text color to white */
+            text-align: center; /* Center align all text */
+        }
+        .container {
+            max-width: 600px; /* Set maximum width of the content container */
+            margin: 0 auto; /* Center the container horizontally */
+            padding: 50px; /* Add some padding for better readability */
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007bff; /* Set button background color */
+            color: white; /* Set button text color */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3; /* Change background color on hover */
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* Set secondary button background color */
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Change secondary button background color on hover */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to ParkPioneer</h1>
         <p>Your gateway to exploring National Parks.</p>
         <div class="auth-options">
-            <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+            <a href="{% url 'login' %}" class="btn">Log In</a>
             <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
         </div>
     </div>
