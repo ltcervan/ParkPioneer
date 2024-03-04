@@ -47,6 +47,7 @@ SQL databases (PostgreSQL)
 
 ## Usage 
 **File Structure**
+The `itinerary` folder holds the main app functionality. The `member` folder holds the user authentication functionalities. 
 ```
 PARKPIONEER
 │
