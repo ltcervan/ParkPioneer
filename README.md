@@ -45,5 +45,39 @@ Python (Django)
 **Databases:**
 SQL databases (PostgreSQL)
 
+## Usage 
+**File Structure**
+```
+PARKPIONEER
+│
+├── itinerary
+│   ├── __pycache__
+│   ├── migrations
+│   ├── templates
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
+├── member
+│
+├── node_modules
+│
+├── ParkPioneer
+│
+├── static/src
+│
+├── .env
+├── .gitignore
+├── db.sqlite3
+├── ERD.png
+├── manage.py
+├── ParkPioneer.png
+└── README.md
+```
 ![ERD chart](ERD.png)
 
