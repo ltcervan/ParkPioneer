@@ -91,7 +91,6 @@ def search_park_events(request, itinerary_id):
 @require_POST
 def add_event_to_itinerary(request, itinerary_id):
     itinerary = get_object_or_404(Itinerary, pk=itinerary_id, user=request.user)
-    # Create a new Event instance with data from the form
     new_event = Event(
         itinerary=itinerary,
         title=request.POST.get('title'),
@@ -111,8 +110,6 @@ def itinerary_detail(request, itinerary_id):
     start_date = itinerary.start_date
     end_date = itinerary.end_date
     number_of_days = (end_date - start_date).days + 1  
-
-    # Gather events by date
     days_events = {}
     for i in range(number_of_days):
         day = start_date + timedelta(days=i)
@@ -131,7 +128,6 @@ def itinerary_detail(request, itinerary_id):
 
 @login_required
 def event_details(request, event_id):
-    # Make a request to the NPS API to fetch event details based on the event_id
     api_url = f"https://developer.nps.gov/api/v1/events"
     params = {
         'api_key': settings.NPS_API_KEY,
@@ -173,7 +169,6 @@ def add_event_to_itinerary(request, itinerary_id, event_id, event_date):
     print("Event ID:", event_id)
     print("Event Date:", event_date)
     itinerary = get_object_or_404(Itinerary, pk=itinerary_id, user=request.user)
-    # Create a new Event instance with data from the form
     new_event = Event(
         itinerary=itinerary,
         title=request.POST.get('title'),
