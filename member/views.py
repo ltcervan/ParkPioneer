@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from itinerary.models import Itinerary 
 from .forms import UserRegisterForm
@@ -42,3 +42,7 @@ def user_login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')  # Name of your URL pattern for home page

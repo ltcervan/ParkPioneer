@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path('register/', views.register, name='register'),
-    path('login/', views.user_login, name='login'),  # Use your custom login view here
-    # Add other paths as needed
+    path('login/', views.user_login, name='login'),  
+    path('logout/', views.user_logout, name='logout'),
 ]
